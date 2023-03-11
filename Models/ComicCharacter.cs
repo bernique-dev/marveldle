@@ -6,9 +6,11 @@ namespace Marveldle.Models {
 
         public int ApparitionYear { get; set; }
 
-        public ComicCharacter(string id, string name, Gender gender, List<Species> species) : base(id, name, gender, species) {}
+        public ComicCharacter() : base() {}
 
-        public ComicCharacter(string id, string name, Gender gender, List<Species> species, int apparitionYear) : base(id, name, gender, species) {
+        public ComicCharacter(string id, string name, Gender gender, CharacterType type, List<Species> species) : base(id, name, gender, type, species) {}
+
+        public ComicCharacter(string id, string name, Gender gender, CharacterType type, List<Species> species, int apparitionYear) : base(id, name, gender, type, species) {
             ApparitionYear = apparitionYear;
         }
 

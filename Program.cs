@@ -2,12 +2,17 @@ using LolStatsAPI.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Marveldle.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+     {
+         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,8 +25,18 @@ builder.Services.AddDbContext<DataContext>(options => {
 );
 
 builder.Services.AddHostedService<DataLoadingService>();
+builder.Services.AddHostedService<DailyCharacterPickerService>();
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy => {
+                          policy.WithOrigins("http://localhost:4200");
+                      });
+});
 
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
 
 
 using (var scope = app.Services.CreateScope()) {
@@ -41,6 +56,8 @@ if (app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

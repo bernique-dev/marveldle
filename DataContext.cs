@@ -47,8 +47,17 @@ namespace LolStatsAPI.Models
                   );
         }
 
+        public CharacterPick GetLastCharacterPick() {
+            return CharacterPicks
+                .Include(cp => cp.comicCharacter)
+                .Include(cp => cp.audioVisualCharacter)
+                .OrderBy(cp => cp.date)
+                .Last();
+        }
+
         public DbSet<AudioVisualCharacter> AudioVisualCharacters { get; set; }
         public DbSet<ComicCharacter> ComicCharacters { get; set; }
+        public DbSet<CharacterPick> CharacterPicks { get; set; }
 
     }
 }

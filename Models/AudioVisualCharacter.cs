@@ -5,9 +5,11 @@ namespace Marveldle.Models {
 
         public List<AppearanceType> AppearanceTypes { get; set; }
 
-        public AudioVisualCharacter(string id, string name, Gender gender, List<Species> species) : base(id, name, gender, species) { }
+        public AudioVisualCharacter() : base() { }
 
-        public AudioVisualCharacter(string id, string name, Gender gender, List<Species> species, List<AppearanceType> appearanceTypes) : base(id, name, gender, species) {
+        public AudioVisualCharacter(string id, string name, Gender gender, CharacterType type, List<Species> species) : base(id, name, gender, type, species) { }
+
+        public AudioVisualCharacter(string id, string name, Gender gender, CharacterType type, List<Species> species, List<AppearanceType> appearanceTypes) : base(id, name, gender, type, species) {
             AppearanceTypes = appearanceTypes;
         }
     }
