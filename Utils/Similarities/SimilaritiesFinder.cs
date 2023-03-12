@@ -7,7 +7,7 @@ namespace Marveldle.Utils.Similarities
         public static Dictionary<string, SimilarityLevel> GetSimilarities(Character guessedCharacter, Character toGuessCharacter) {
             var similarities = new Dictionary<string, SimilarityLevel>();
 
-            similarities.Add("all", guessedCharacter.Id == toGuessCharacter.Id ? SimilarityLevel.Exact : SimilarityLevel.None);
+            similarities.Add("id", guessedCharacter.Id == toGuessCharacter.Id ? SimilarityLevel.Exact : SimilarityLevel.None);
 
             similarities.Add("gender", guessedCharacter.Gender == toGuessCharacter.Gender ? SimilarityLevel.Exact : SimilarityLevel.None);
             similarities.Add("type", guessedCharacter.Type == toGuessCharacter.Type ? SimilarityLevel.Exact : SimilarityLevel.None);
